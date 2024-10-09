@@ -5,17 +5,21 @@ import java.io.PrintWriter;
 import edu.grinnell.csc207.util.CipherUtils;
 
 /**
- * Runs the correct cipher program from CipherUtils based on user input
- */
+ * Runs the correct cipher program from CipherUtils based on user input.
+ * Author: Alyssa Ryan
+ * Course: CSC-207
+*/
 public class Cipher {
   /**
    * The number of arguements that the user should be passing.
    */
   public static final int ARGS_SIZE = 4;
   /**
-   * Max number of actions allowed
+   * Max number of actions allowed.
    */
   public static final int MAX_ACTIONS = 2;
+
+
   /**
    * Main class.
    * @param args
@@ -25,7 +29,8 @@ public class Cipher {
     String cOrV = "empty";
     String str = "";
     String key = "-empty";
-    //Stores if we have already gotten the string from the user
+    //Stores if we have already gotten the string from the user.
+
     int actionsFound = 0;
     int strFound = 0;
     PrintWriter errors = new PrintWriter(System.err, true);
@@ -38,7 +43,7 @@ public class Cipher {
 
     //Adds the users' input to the correct variable
     for (int i = 0; i < ARGS_SIZE; i++) {
-      if (args[i].isEmpty()){
+      if (args[i].isEmpty()) {
         errors.println("Error: empty parameter");
         return;
       } else if (actionsFound < MAX_ACTIONS && args[i].charAt(0) == '-') {
@@ -72,14 +77,14 @@ public class Cipher {
     } else if (str.isEmpty()) {
       pen.println("\n");
       return;
-    } else if (cOrV.equals("-caesar") && key.length()!=1) {
+    } else if (cOrV.equals("-caesar") && key.length() != 1) {
       errors.println("Error: Caesar ciphers require a one-character key");
       return;
-    } else if (!AllCaesar.isAllLowercase(str)){
+    } else if (!AllCaesar.isAllLowercase(str)) {
       errors.println("Error: strings must be only lowercase letters");
       return;
     } //Outputs an error message if an incorrect value was inputted
-    
+
     String output = "";
     if (enOrDe.equals("-encode")) {
       if (cOrV.equals("-caesar")) {

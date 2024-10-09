@@ -1,8 +1,9 @@
 package edu.grinnell.csc207.util;
 
 /**
- * Author: Alyssa Ryan
  * Has all of the methods to encode and decode strings.
+ * Author: Alyssa Ryan
+ * Course: CSC-207
  */
 public class CipherUtils {
   /**

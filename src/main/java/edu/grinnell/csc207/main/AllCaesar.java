@@ -5,6 +5,8 @@ import edu.grinnell.csc207.util.CipherUtils;
 
 /**
  * Prints all possible solutions to encode or decode the string given by the user.
+ * Author: Alyssa Ryan
+ * Course: CSC-207
  */
 public class AllCaesar {
 
@@ -20,11 +22,13 @@ public class AllCaesar {
    * The maximum int index for a lowercase character.
    */
   public static final int MAX_CHAR_INDEX = 122;
-   /**
+
+
+  /**
    * Main method for the class.
    * Runs based on input from the user.
    * @param args
-   */
+  */
   public static void main(String[] args) {
     //Encoding or decoding
     String enOrDe = "";

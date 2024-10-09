@@ -43,10 +43,7 @@ public class Cipher {
 
     //Adds the users' input to the correct variable
     for (int i = 0; i < ARGS_SIZE; i++) {
-      if (args[i].isEmpty()) {
-        errors.println("Error: empty parameter");
-        return;
-      } else if (actionsFound < MAX_ACTIONS && args[i].charAt(0) == '-') {
+      if (actionsFound < MAX_ACTIONS && args[i].charAt(0) == '-') {
         if (args[i].equals("-encode") || args[i].equals("-decode")) {
           enOrDe = args[i];
           actionsFound++;
@@ -69,7 +66,7 @@ public class Cipher {
       errors.println("Error: no valid action specified. Legal values are '-encode' and '-decode'");
       return;
     } else if (cOrV.equals("empty")) {
-      errors.println("Error: no cipher type specified. Legal values are '-caesar' and '-decode'");
+      errors.println("Error: no cipher type specified. Legal values are '-caesar' and '-vigenere'");
       return;
     } else if (key.isEmpty() || key.equals("-empty")) {
       errors.println("Error: Empty keys are not permitted");

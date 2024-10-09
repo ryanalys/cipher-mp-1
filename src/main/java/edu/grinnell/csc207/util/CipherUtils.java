@@ -97,7 +97,7 @@ public class CipherUtils {
     for (int i = 0; i < length; i++) {
       current = codeArray[i];
       current -= key;
-      if (current <= 0) {
+      if (current < 0) {
         current += MAX_LETTERS;
       } //Wraps the int around if it is too small
       codeArray[i] = current;

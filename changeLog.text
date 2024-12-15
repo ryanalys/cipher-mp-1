@@ -1,0 +1,2 @@
+Added the classes applyCaesar and applyVigenere to CipherUtils.java
+  in order to factor out the code into individual methods some more

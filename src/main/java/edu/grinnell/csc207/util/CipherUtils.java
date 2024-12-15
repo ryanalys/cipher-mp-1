@@ -60,6 +60,33 @@ public class CipherUtils {
   } //int2letter
 
   /**
+   * Applies the caesar code to the inputted array.
+   * @param str The string to be coded translated to its int form
+   * @param key The key to use when applying the caesar shift
+   * @param eOrD Whether we are encoding 'e' or decoding 'd'
+   * @return The int form of the coded string
+   */
+  public static int[] applyCaesar(int[] str, int key, char eOrD) {
+    int current = 0;
+    for (int i = 0; i < str.length; i++) {
+      current = str[i];
+      if (eOrD == 'e') {
+        current += key;
+        if (current >= MAX_LETTERS) {
+          current -= MAX_LETTERS;
+        } //if
+      } else {
+        current -= key;
+        if (current < 0) {
+          current += MAX_LETTERS;
+        } //if
+      } //if
+      str[i] = current;
+    } //for
+    return str;
+  } //applyCaesar
+
+  /**
    * Encrypts a given string using the caesar cipher and key letter 'letter'.
    * @param str string to encrypt
    * @param letter char to use as the key
@@ -67,17 +94,8 @@ public class CipherUtils {
    */
   public static String caesarEncrypt(String str, char letter) {
     int key = letter2int(letter) - (int) 'a';
-    int length = str.length();
     int[] codeArray = stringToIntArray(str);
-    int current = 0;
-    for (int i = 0; i < length; i++) {
-      current = codeArray[i];
-      current += key;
-      if (current >= MAX_LETTERS) {
-        current -= MAX_LETTERS;
-      } //Wraps the int around if it is too large
-      codeArray[i] = current;
-    } //Applies the key to each element
+    codeArray = applyCaesar(codeArray, key, 'e');
     char[] charArray = intArrayToStringArray(codeArray);
     String output = new String(charArray);
     return output;
@@ -91,21 +109,39 @@ public class CipherUtils {
    */
   public static String caesarDecrypt(String str, char letter) {
     int key = letter2int(letter) - letter2int('a');
-    int length = str.length();
     int[] codeArray = stringToIntArray(str);
-    int current = 0;
-    for (int i = 0; i < length; i++) {
-      current = codeArray[i];
-      current -= key;
-      if (current < 0) {
-        current += MAX_LETTERS;
-      } //Wraps the int around if it is too small
-      codeArray[i] = current;
-    } //Applies the key to each element
+    codeArray = applyCaesar(codeArray, key, 'd');
     char[] charArray = intArrayToStringArray(codeArray);
     String output = new String(charArray);
     return output;
   } //caesarDecrypt
+
+  /**
+   * Applies the vigenere cipher to the given string.
+   * @param str The string to be coded, translated into its int form
+   * @param key The key to use for the code, translated into its int form
+   * @param eOrD Whether we are encoding 'e' or decoding 'd'
+   * @return The int form of the coded array
+   */
+  public static int[] applyVigenere(int[] str, int[] key, char eOrD) {
+    int current = 0;
+    for (int i = 0; i < str.length; i++) {
+      current = str[i];
+      if (eOrD == 'e') {
+        current = current + key[i % key.length];
+        if (current >= MAX_LETTERS) {
+          current -= MAX_LETTERS;
+        } //if
+      } else {
+        current = current - key[i % key.length];
+        if (current < 0) {
+          current += MAX_LETTERS;
+        } //if
+      } //if
+      str[i] = current;
+    } //for
+    return str;
+  } //applyVigenere(int[], int[], char)
 
    /**
    * Encrypts a given string using the vigenere cipher and the given key 'key'.
@@ -118,26 +154,11 @@ public class CipherUtils {
     int[] ikey = stringToIntArray(key);
     //Stores the int values of each ch in str
     int[] codeArray = stringToIntArray(str);
-    //Length of str
-    int length = str.length();
-    //Length of key
-    int keylength = key.length();
-
-    int current = 0;
-    for (int i = 0; i < length; i++) {
-      current = codeArray[i];
-      current = current + ikey[i % keylength];
-      if (current >= MAX_LETTERS) {
-        current -= MAX_LETTERS;
-      } //Wraps the int around if it gets too large
-      codeArray[i] = current;
-    } //applies the correct element of key to each element of the string
-
-    //converts the coded array of ints to a string
+    codeArray = applyVigenere(codeArray, ikey, 'e');
     char[] charArray = intArrayToStringArray(codeArray);
     String output = new String(charArray);
     return output;
-  } //vigenereEncrypt
+  } //vigenereEncrypt(String, String)
 
   /**
    * Decrypts a given string using the vigenere cipher and the given key 'key'.
@@ -150,20 +171,7 @@ public class CipherUtils {
     int[] ikey = stringToIntArray(key);
     //Stores the int values of each ch in str
     int[] codeArray = stringToIntArray(str);
-    //Length of str
-    int length = str.length();
-    //Length of key
-    int keylength = key.length();
-
-    int current = 0;
-    for (int i = 0; i < length; i++) {
-      current = codeArray[i];
-      current = current - ikey[i % keylength];
-      if (current < 0) {
-        current += MAX_LETTERS;
-      } //Wraps the int around if it gets too large
-      codeArray[i] = current;
-    } //applies the correct element of key to each element of the string
+    codeArray = applyVigenere(codeArray, ikey, 'd');
     //converts the coded array of ints to a string
     char[] charArray = intArrayToStringArray(codeArray);
     String output = new String(charArray);
